@@ -24,5 +24,5 @@ async def get_healthcare_facilities(
         else:
             facilities = hospital_service.get_all_facilities()
         return facilities
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to fetch facility catalog: {str(e)}")
+    except Exception:
+        raise HTTPException(status_code=500, detail="Failed to fetch facility catalog.")
