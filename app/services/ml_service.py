@@ -12,8 +12,14 @@ FEATURES = ["%Red Pixel", "%Green pixel", "%Blue pixel"]
 
 class MLInferenceService:
     def __init__(self):
-        artifact = joblib.load(MODEL_PATH)
-        self.model = artifact["model"]
+        self._model = None
+
+    @property
+    def model(self):
+        if self._model is None:
+            artifact = joblib.load(MODEL_PATH)
+            self._model = artifact["model"]
+        return self._model
 
     def predict(self, payload: ScreeningInputSchema) -> ScreeningOutputSchema:
         features = pd.DataFrame(
